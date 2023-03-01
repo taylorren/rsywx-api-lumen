@@ -53,6 +53,12 @@ $router->group(['prefix' => 'readings'], function () use ($router) {
     $router->get('/', 'ReadController@summary');
 });
 
+$router->group(['prefix' => 'blogs'], function () use ($router) {
+    $router->get('/latest/{count}', 'BlogController@latest');
+    $router->get('/today', 'BlogController@blogsToday');
+    
+});
+
 
 $router->get('/qotd', 'MiscController@qotd');
 $router->get('/weather', 'MiscController@weather');
