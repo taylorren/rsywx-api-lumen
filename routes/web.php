@@ -62,4 +62,6 @@ $router->group(['prefix' => 'blogs'], function () use ($router) {
 
 $router->get('/qotd', 'MiscController@qotd');
 $router->get('/weather', 'MiscController@weather');
+$router->get('/lakers', 'MiscController@lakers');
+
 

@@ -141,6 +141,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Http-Controllers-MiscController.html#method_weather"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\MiscController\u003A\u003Alakers\u0028\u0029",
+            "name": "lakers",
+            "summary": "Returns\u0020Lakers\u0020score\u0020summary\u0020in\u0020a\u0020season",
+            "url": "classes/App-Http-Controllers-MiscController.html#method_lakers"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\MiscController\u003A\u003A\u0024request",
             "name": "request",
             "summary": "",
@@ -161,10 +166,45 @@ Search.appendIndex(
             "summary": "Return\u0020latest\u0020book\u0020reviews",
             "url": "classes/App-Http-Controllers-ReadController.html#method_latest"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\ReadController\u003A\u003Asummary\u0028\u0029",
+            "name": "summary",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-ReadController.html#method_summary"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\ReadController\u003A\u003A\u0024request",
             "name": "request",
             "summary": "",
             "url": "classes/App-Http-Controllers-ReadController.html#property_request"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BlogController",
+            "name": "BlogController",
+            "summary": "This\u0020is\u0020the\u0020Controller\u0020for\u0020Book\u0020related\u0020operations",
+            "url": "classes/App-Http-Controllers-BlogController.html"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BlogController\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-BlogController.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BlogController\u003A\u003Alatest\u0028\u0029",
+            "name": "latest",
+            "summary": "Return\u0020latest\u0020\u0024count\u0020of\u0020blogs",
+            "url": "classes/App-Http-Controllers-BlogController.html#method_latest"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BlogController\u003A\u003A_getMedia\u0028\u0029",
+            "name": "_getMedia",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-BlogController.html#method__getMedia"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BlogController\u003A\u003AblogsToday\u0028\u0029",
+            "name": "blogsToday",
+            "summary": "Returns\u0020blogs\u0020for\u0020today\u0020in\u0020history",
+            "url": "classes/App-Http-Controllers-BlogController.html#method_blogsToday"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BlogController\u003A\u003A\u0024request",
+            "name": "request",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-BlogController.html#property_request"
         },                {
             "fqsen": "\\",
             "name": "\\",

@@ -306,7 +306,10 @@ class BookController extends BaseController {
         }
 
         return response()->json([
-                    'data' => $res,
+                    'data' => [
+                        'books'=>$res[0], 
+                        'pages'=>$res[1],
+                    ],
         ]);
     }
 
