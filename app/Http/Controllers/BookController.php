@@ -55,7 +55,7 @@ class BookController extends BaseController {
         return route('cover', [
             'bookid' => $id,
             'author' => $author,
-            'title' => $title,
+            'title' => htmlspecialchars($title),
             'size' => $size,
         ]);
     }
@@ -219,7 +219,6 @@ class BookController extends BaseController {
             $bResults = DB::connection('rsywx')->select($bookSql, [$m, $d, $y]);
 
             $r->books = $bResults;
-           
         }
         return response()->json([
                     'data' => $results,
@@ -307,8 +306,8 @@ class BookController extends BaseController {
 
         return response()->json([
                     'data' => [
-                        'books'=>$res[0], 
-                        'pages'=>$res[1],
+                        'books' => $res[0],
+                        'pages' => $res[1],
                     ],
         ]);
     }
@@ -362,11 +361,19 @@ class BookController extends BaseController {
     }
 
     private function _searchByTag($key, $page): array {
+        $key = htmlspecialchars(urldecode($key));
+    
         if ($key === $this->all_key) {
             return $this->_searchByTitle($key, $page);
         } else {
-            return "Tag: $key+$page";
+            $countSql = "select count(b.id) bc from book_book b, book_taglist t where t.tag='$key' and b.id=t.bid";
+            $resSql = "select b.* from book_book b, book_taglist t where t.tag='$key' and b.id=t.bid order by b.id desc";
         }
+        [$res, $count]=$this->_executeSql($countSql, $resSql, $page);
+        
+        $bc = $count[0];
+        $tpc = $this->_getTotalPages($bc->bc);
+        return [$res, $tpc];
     }
 
     private function _searchByMisc($key, $page): array {
@@ -380,19 +387,26 @@ class BookController extends BaseController {
     private function _executeSql($countSql, $resSql, $page) {
         $rpp = $this->rpp;
         $resSql = $resSql . ' limit ' . ($page - 1) * $rpp . ', ' . $rpp;
+        
         $books = DB::connection('rsywx')->select($resSql);
         $count = DB::connection('rsywx')->select($countSql);
 
         return [$books, $count];
     }
-    
-    public function hot($count=10) {
-        $sql='select b.*, count(v.vid) vc from book_book b, book_visit v where v.bookid=b.id group by b.id order by vc desc '."limit 0, $count";
-                
-        $results=DB::connection('rsywx')->select($sql);
-        return response()->json(['data'=>$results]);
-        
-        
+
+    public function tagCount() {
+        $sql = "select count(tid) tc, tag from book_taglist group by tag order by rand() desc limit 0,20";
+        $results = DB::connection('rsywx')->select($sql);
+        return response()->json([
+                    'data' => $results
+        ]);
+    }
+
+    public function hot($count = 10) {
+        $sql = 'select b.*, count(v.vid) vc from book_book b, book_visit v where v.bookid=b.id group by b.id order by vc desc ' . "limit 0, $count";
+
+        $results = DB::connection('rsywx')->select($sql);
+        return response()->json(['data' => $results]);
     }
 
 }

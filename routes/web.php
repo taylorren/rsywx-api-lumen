@@ -46,6 +46,7 @@ $router->group(['prefix' => 'books'], function () use ($router) {
     $router->get('/addtag/{id}/{tag}', 'BookController@addTag');
     $router->get('/list/{type}/{key}/{page}', 'BookController@list');
     $router->get('/hot[/{count}]', 'BookController@hot');
+    $router->get('/tagcount', 'BookController@tagCount');
 });
 
 $router->group(['prefix' => 'readings'], function () use ($router) {
