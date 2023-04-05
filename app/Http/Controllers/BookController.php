@@ -317,7 +317,7 @@ class BookController extends BaseController {
         $resSql = "";
         $countSql = "";
 
-        if ($key === $this->all_key) {
+        if ($nkey === $this->all_key) {
             $countSql = 'select count(id) as bc from book_book';
             $resSql = 'select * from book_book order by id desc';
         } else {
@@ -325,9 +325,8 @@ class BookController extends BaseController {
             $resSql = "select * from book_book where title like '%$nkey%' order by id desc";
         }
 
-        [$res, $count] = $this->_executeSql($countSql, $resSql, $page);
-        $bc = $count[0];
-        $tpc = $this->_getTotalPages($bc->bc);
+        [$res, $tpc] = $this->_executeSql($countSql, $resSql, $page);
+        
         return [$res, $tpc];
     }
 
@@ -353,26 +352,22 @@ class BookController extends BaseController {
             $resSql = "select * from book_book where author like '%$nkey%' order by id desc";
         }
 
-        [$res, $count] = $this->_executeSql($countSql, $resSql, $page);
+        [$res, $tpc] = $this->_executeSql($countSql, $resSql, $page);
 
-        $bc = $count[0];
-        $tpc = $this->_getTotalPages($bc->bc);
         return [$res, $tpc];
     }
 
     private function _searchByTag($key, $page): array {
-        $key = htmlspecialchars(urldecode($key));
-    
-        if ($key === $this->all_key) {
-            return $this->_searchByTitle($key, $page);
+        $nkey = htmlspecialchars(urldecode($key));
+
+        if ($nkey === $this->all_key) {
+            return $this->_searchByTitle($nkey, $page);
         } else {
-            $countSql = "select count(b.id) bc from book_book b, book_taglist t where t.tag='$key' and b.id=t.bid";
-            $resSql = "select b.* from book_book b, book_taglist t where t.tag='$key' and b.id=t.bid order by b.id desc";
+            $countSql = "select count(b.id) bc from book_book b, book_taglist t where t.tag='$nkey' and b.id=t.bid";
+            $resSql = "select b.* from book_book b, book_taglist t where t.tag='$nkey' and b.id=t.bid order by b.id desc";
         }
-        [$res, $count]=$this->_executeSql($countSql, $resSql, $page);
-        
-        $bc = $count[0];
-        $tpc = $this->_getTotalPages($bc->bc);
+        [$res, $tpc] = $this->_executeSql($countSql, $resSql, $page);
+
         return [$res, $tpc];
     }
 
@@ -380,18 +375,30 @@ class BookController extends BaseController {
         if ($key === $this->all_key) {
             return $this->_searchByTitle($key, $page);
         } else {
-            return "Misc: $key+$page";
+            $countSql = "select count(*) bc from book_book "
+                    . "where title like '%$key%' "
+                    . "or author like '%$key%' "
+                    . "or id in (select bid from book_taglist where tag like '%$key%')";
+
+            $selectSql = "select * from book_book "
+                    . "where title like '%$key%' "
+                    . "or author like '%$key%' "
+                    . "or id in (select bid from book_taglist where tag like '%$key%') "
+                    . "order by id desc";
         }
     }
 
     private function _executeSql($countSql, $resSql, $page) {
         $rpp = $this->rpp;
         $resSql = $resSql . ' limit ' . ($page - 1) * $rpp . ', ' . $rpp;
-        
-        $books = DB::connection('rsywx')->select($resSql);
-        $count = DB::connection('rsywx')->select($countSql);
 
-        return [$books, $count];
+        $books = DB::connection('rsywx')->select($resSql);
+        $countRes = DB::connection('rsywx')->select($countSql);
+        
+        $count=$countRes[0]->bc;
+        $totalPage=$this->_getTotalPages($count);
+        
+        return [$books, $totalPage];
     }
 
     public function tagCount() {
