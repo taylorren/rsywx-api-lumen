@@ -68,7 +68,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003Alist\u0028\u0029",
             "name": "list",
-            "summary": "",
+            "summary": "Get\u0020books\u0020based\u0020on\u0020search\u0020criteria",
             "url": "classes/App-Http-Controllers-BookController.html#method_list"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003A_searchByTitle\u0028\u0029",
@@ -100,6 +100,11 @@ Search.appendIndex(
             "name": "_executeSql",
             "summary": "",
             "url": "classes/App-Http-Controllers-BookController.html#method__executeSql"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003AtagCount\u0028\u0029",
+            "name": "tagCount",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-BookController.html#method_tagCount"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003Ahot\u0028\u0029",
             "name": "hot",
@@ -138,7 +143,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\MiscController\u003A\u003Aweather\u0028\u0029",
             "name": "weather",
-            "summary": "",
+            "summary": "Returns\u0020the\u0020current\u0020weather\u0020in\u0020Suzhou",
             "url": "classes/App-Http-Controllers-MiscController.html#method_weather"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\MiscController\u003A\u003Alakers\u0028\u0029",

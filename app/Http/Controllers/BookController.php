@@ -226,13 +226,15 @@ class BookController extends BaseController {
     }
 
     /**
-     * Returns the tag list for a given book
-     * @param int $id Book id 
+     * Returns the tag list for a given bookid
+     * @param int $id Book's bookid 
      * @return JSON
      */
-    public function tags($id) {
-        $sql = 'select tag from book_taglist where bid=?';
-        $results = DB::connection('rsywx')->select($sql, [$id]);
+    public function tags($bookid) {
+        $sql = 'select t.tag from book_taglist t, book_book b
+where t.bid=b.id
+and b.bookid=?';
+        $results = DB::connection('rsywx')->select($sql, [$bookid]);
 
         $tags = [];
         foreach ($results as $r) {
@@ -291,6 +293,13 @@ class BookController extends BaseController {
         ]);
     }
 
+    /**
+     * Get books based on search criteria
+     * @param string $type Search Type: title, author, tag, misc
+     * @param string $key The key, with wildcard available (now is "-")
+     * @param int $page For pagination
+     * @return JSON
+     */
     public function list($type, $key, $page) {
         $res = match ($type) {
             'title' => $this->_searchByTitle($key, $page),
@@ -326,7 +335,7 @@ class BookController extends BaseController {
         }
 
         [$res, $tpc] = $this->_executeSql($countSql, $resSql, $page);
-        
+
         return [$res, $tpc];
     }
 
@@ -371,7 +380,8 @@ class BookController extends BaseController {
         return [$res, $tpc];
     }
 
-    private function _searchByMisc($key, $page): array {
+    private function _searchByMisc($okey, $page): array {
+        $key = htmlspecialchars(urldecode($okey));
         if ($key === $this->all_key) {
             return $this->_searchByTitle($key, $page);
         } else {
@@ -380,12 +390,16 @@ class BookController extends BaseController {
                     . "or author like '%$key%' "
                     . "or id in (select bid from book_taglist where tag like '%$key%')";
 
-            $selectSql = "select * from book_book "
+            $resSql = "select * from book_book "
                     . "where title like '%$key%' "
                     . "or author like '%$key%' "
                     . "or id in (select bid from book_taglist where tag like '%$key%') "
                     . "order by id desc";
         }
+
+        [$res, $tpc] = $this->_executeSql($countSql, $resSql, $page);
+
+        return [$res, $tpc];
     }
 
     private function _executeSql($countSql, $resSql, $page) {
@@ -394,10 +408,10 @@ class BookController extends BaseController {
 
         $books = DB::connection('rsywx')->select($resSql);
         $countRes = DB::connection('rsywx')->select($countSql);
-        
-        $count=$countRes[0]->bc;
-        $totalPage=$this->_getTotalPages($count);
-        
+
+        $count = $countRes[0]->bc;
+        $totalPage = $this->_getTotalPages($count);
+
         return [$books, $totalPage];
     }
 
