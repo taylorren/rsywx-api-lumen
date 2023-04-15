@@ -283,14 +283,25 @@ and b.bookid=?';
      * @param type $tag
      * @return bool True is insertion is success
      */
-    public function addTag($id, $tag) {
+    public function addTag(\Illuminate\Http\Request $request) {
         $sql = 'insert into book_taglist (bid, tag) values (?, ?)';
 
-        $results = DB::connection('rsywx')->insert($sql, [$id, htmlspecialchars(urldecode($tag))]);
-
+        $all=$request->all();
+        $id=$all['id'];
+        $tags=$all['tags'];
+        $splitTag= explode(' ', $tags);
+        
+        foreach($splitTag as $t) {
+            DB::connection('rsywx')->insert($sql, [$id, htmlspecialchars(urldecode($t))]);
+        }
+        
         return response()->json([
-                    'data' => $results,
+            'data'=>[
+                $tags,
+                ],
+            
         ]);
+
     }
 
     /**

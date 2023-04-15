@@ -36,7 +36,8 @@ class MiscController extends BaseController {
      */
     public function weather() {
         $city = "CN101190401"; // CN101190401 is the code for Suzhou, Jiangsu, China
-        $key = "df35dd302a1949faac063b497caf8dfc";
+        //$key = "df35dd302a1949faac063b497caf8dfc";
+        $key = "c4ac49d603e04dbc876470cd617cd80b";
         //https://devapi.qweather.com/v7/weather/now?location=CN101190401&key=df35dd302a1949faac063b497caf8dfc
         //Note on Apr 1st 2023: API interface seems changed
         //$uri1 = "https://free-api.heweather.net/s6/weather/now?location=$city&key=$key";

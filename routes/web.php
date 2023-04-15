@@ -43,7 +43,7 @@ $router->group(['prefix' => 'books'], function () use ($router) {
     $router->get('/today/{m}/{d}', 'BookController@today');
     $router->get('/tags/{bookid}', 'BookController@tags');
     $router->get('/reviews/{bid}', 'BookController@reviews');
-    $router->get('/addtag/{id}/{tag}', 'BookController@addTag');
+    $router->post('/addtag', 'BookController@addTag');
     $router->get('/list/{type}/{key}/{page}', 'BookController@list');
     $router->get('/hot[/{count}]', 'BookController@hot');
     $router->get('/tagcount', 'BookController@tagCount');
