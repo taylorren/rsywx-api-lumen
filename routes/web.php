@@ -52,6 +52,7 @@ $router->group(['prefix' => 'books'], function () use ($router) {
 $router->group(['prefix' => 'readings'], function () use ($router) {
     $router->get('/latest/{count}', 'ReadController@latest');
     $router->get('/', 'ReadController@summary');
+    $router->get('/{page}', 'ReadController@list');
 });
 
 $router->group(['prefix' => 'blogs'], function () use ($router) {
