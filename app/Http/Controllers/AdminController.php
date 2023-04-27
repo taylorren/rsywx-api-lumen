@@ -37,5 +37,47 @@ order by vd desc ";
     );
     }
         
+    public function getTopBooks($count=20) {
+        $sql="SELECT b.title, b.bookid, count(v.vid) vc, max(v.visitwhen) lvt FROM book_book b, book_visit v
+where b.id=v.bookid
+group by b.id
+order by vc desc 
+limit 0,$count";
+        
+        $res=DB::connection('rsywx')->select($sql);
+        return response()->json([
+            'data'=>$res,
+        ]);
+        
+        
+    }
     
+    public function getBottomBooks($count=20) {
+        $sql="SELECT b.title, b.bookid, count(v.vid) vc, max(v.visitwhen) lvt FROM book_book b, book_visit v
+where b.id=v.bookid
+group by b.id
+order by vc
+limit 0,$count";
+        
+        $res=DB::connection('rsywx')->select($sql);
+        return response()->json([
+            'data'=>$res,
+        ]);
+        
+        
+    }
+    public function getRecentBooks($count=20) {
+        $sql="SELECT b.title, b.bookid, count(v.vid) vc, max(v.visitwhen) lvt FROM book_book b, book_visit v
+where b.id=v.bookid
+group by b.id
+order by lvt desc
+limit 0,$count";
+        
+        $res=DB::connection('rsywx')->select($sql);
+        return response()->json([
+            'data'=>$res,
+        ]);
+        
+        
+    }
 }

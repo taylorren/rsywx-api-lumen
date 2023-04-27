@@ -63,6 +63,10 @@ $router->group(['prefix' => 'blogs'], function () use ($router) {
 
 $router->group(['prefix'=>'admin'], function() use ($router) {
     $router->get('/visit[/{days}]', 'AdminController@visit');
+    $router->get('/topbooks[/{count}]', 'AdminController@getTopBooks');
+    $router->get('/bottombooks[/{count}]', 'AdminController@getBottomBooks');
+    $router->get('/recentbooks[/{count}]', 'AdminController@getRecentBooks');
+    
 });
 
 $router->get('/qotd', 'MiscController@qotd');
