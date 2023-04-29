@@ -23,7 +23,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003Alatest\u0028\u0029",
             "name": "latest",
-            "summary": "Retrieve\u0020\u0024count\u0020latest\u0020books",
+            "summary": "Retrieve\u0020latest\u0020\u0024count\u0020books",
             "url": "classes/App-Http-Controllers-BookController.html#method_latest"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003Adetail\u0028\u0029",
@@ -48,7 +48,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003Atags\u0028\u0029",
             "name": "tags",
-            "summary": "Returns\u0020the\u0020tag\u0020list\u0020for\u0020a\u0020given\u0020book",
+            "summary": "Returns\u0020the\u0020tag\u0020list\u0020for\u0020a\u0020given\u0020bookid",
             "url": "classes/App-Http-Controllers-BookController.html#method_tags"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003A_updateVc\u0028\u0029",
@@ -103,12 +103,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003AtagCount\u0028\u0029",
             "name": "tagCount",
-            "summary": "",
+            "summary": "Returns\u0020random\u002020\u0020tags\u0020and\u0020its\u0020count",
             "url": "classes/App-Http-Controllers-BookController.html#method_tagCount"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003Ahot\u0028\u0029",
             "name": "hot",
-            "summary": "",
+            "summary": "Return\u0020mostly\u0020\u0024count\u0020visited\u0020books",
             "url": "classes/App-Http-Controllers-BookController.html#method_hot"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\BookController\u003A\u003A\u0024request",
@@ -151,6 +151,11 @@ Search.appendIndex(
             "summary": "Returns\u0020Lakers\u0020score\u0020summary\u0020in\u0020a\u0020season",
             "url": "classes/App-Http-Controllers-MiscController.html#method_lakers"
         },                {
+            "fqsen": "\\App\\Http\\Controllers\\MiscController\u003A\u003Aseason\u0028\u0029",
+            "name": "season",
+            "summary": "Returns\u0020Laker\u0027s\u0020seasonal\u0020games\u0020records",
+            "url": "classes/App-Http-Controllers-MiscController.html#method_season"
+        },                {
             "fqsen": "\\App\\Http\\Controllers\\MiscController\u003A\u003A\u0024request",
             "name": "request",
             "summary": "",
@@ -173,8 +178,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Http\\Controllers\\ReadController\u003A\u003Asummary\u0028\u0029",
             "name": "summary",
-            "summary": "",
+            "summary": "Return\u0020reading\u0020summary",
             "url": "classes/App-Http-Controllers-ReadController.html#method_summary"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\ReadController\u003A\u003Alist\u0028\u0029",
+            "name": "list",
+            "summary": "Return\u0020a\u0020list\u0020of\u0020readings",
+            "url": "classes/App-Http-Controllers-ReadController.html#method_list"
         },                {
             "fqsen": "\\App\\Http\\Controllers\\ReadController\u003A\u003A\u0024request",
             "name": "request",
@@ -210,6 +220,41 @@ Search.appendIndex(
             "name": "request",
             "summary": "",
             "url": "classes/App-Http-Controllers-BlogController.html#property_request"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\AdminController",
+            "name": "AdminController",
+            "summary": "This\u0020is\u0020the\u0020Controller\u0020for\u0020Book\u0020related\u0020operations",
+            "url": "classes/App-Http-Controllers-AdminController.html"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\AdminController\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-AdminController.html#method___construct"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\AdminController\u003A\u003Avisit\u0028\u0029",
+            "name": "visit",
+            "summary": "Returns\u0020visit\u0020count\u0020in\u0020the\u0020past\u0020days",
+            "url": "classes/App-Http-Controllers-AdminController.html#method_visit"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\AdminController\u003A\u003AgetTopBooks\u0028\u0029",
+            "name": "getTopBooks",
+            "summary": "Returns\u0020most\u0020visited\u0020books",
+            "url": "classes/App-Http-Controllers-AdminController.html#method_getTopBooks"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\AdminController\u003A\u003AgetBottomBooks\u0028\u0029",
+            "name": "getBottomBooks",
+            "summary": "Returns\u0020least\u0020visited\u0020books",
+            "url": "classes/App-Http-Controllers-AdminController.html#method_getBottomBooks"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\AdminController\u003A\u003AgetRecentBooks\u0028\u0029",
+            "name": "getRecentBooks",
+            "summary": "Return\u0020recently\u0020visited\u0020books",
+            "url": "classes/App-Http-Controllers-AdminController.html#method_getRecentBooks"
+        },                {
+            "fqsen": "\\App\\Http\\Controllers\\AdminController\u003A\u003A\u0024request",
+            "name": "request",
+            "summary": "",
+            "url": "classes/App-Http-Controllers-AdminController.html#property_request"
         },                {
             "fqsen": "\\",
             "name": "\\",

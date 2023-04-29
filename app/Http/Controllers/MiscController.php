@@ -113,6 +113,10 @@ class MiscController extends BaseController {
         );
     }
 
+    /**
+     * Returns Laker's seasonal games records
+     * @return type
+     */
     public function season() {
         $interval = 28*4;
         $sql = "SELECT * FROM rsywx.lakers

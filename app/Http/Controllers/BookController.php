@@ -61,7 +61,7 @@ class BookController extends BaseController {
     }
 
     /**
-     * Retrieve $count latest books
+     * Retrieve latest $count books
      * 
      * @param int $count Specifies the number of latest books to retrieve
      * @return JSON
@@ -92,13 +92,20 @@ class BookController extends BaseController {
      */
     public function detail(string $bookid) {
         $result = DB::connection('rsywx')->select("select b.*, pub.name pu_name, pl.name pu_place, count(v.vid) vc, max(v.visitwhen) lvt from book_book b, book_visit v, book_publisher pub, book_place pl where b.bookid=? and pub.id=b.publisher and pl.id=b.place and v.bookid=b.id group by v.bookid", [$bookid]);
-        $r = $result[0];
-        $r->img = $this->_generateImgUri($r->bookid, $r->author, $r->title, 600);
-        $id = $r->id;
-        $this->_updateVc($id);
-        return response()->json([
-                    'data' => $r,
-        ]);
+
+        if ($result == []) {
+            return response()->json([
+                        'data' => "errr"
+                            ], 404);
+        } else {
+            $r = $result[0];
+            $r->img = $this->_generateImgUri($r->bookid, $r->author, $r->title, 600);
+            $id = $r->id;
+            $this->_updateVc($id);
+            return response()->json([
+                        'data' => $r,
+            ]);
+        }
     }
 
     /**
@@ -227,7 +234,7 @@ class BookController extends BaseController {
 
     /**
      * Returns the tag list for a given bookid
-     * @param int $id Book's bookid 
+     * @param int $bookid Book's bookid 
      * @return JSON
      */
     public function tags($bookid) {
@@ -286,22 +293,20 @@ and b.bookid=?';
     public function addTag(\Illuminate\Http\Request $request) {
         $sql = 'insert into book_taglist (bid, tag) values (?, ?)';
 
-        $all=$request->all();
-        $id=$all['id'];
-        $tags=$all['tags'];
-        $splitTag= explode(' ', $tags);
-        
-        foreach($splitTag as $t) {
+        $all = $request->all();
+        $id = $all['id'];
+        $tags = $all['tags'];
+        $splitTag = explode(' ', $tags);
+
+        foreach ($splitTag as $t) {
             DB::connection('rsywx')->insert($sql, [$id, htmlspecialchars(urldecode($t))]);
         }
-        
-        return response()->json([
-            'data'=>[
-                $tags,
-                ],
-            
-        ]);
 
+        return response()->json([
+                    'data' => [
+                        $tags,
+                    ],
+        ]);
     }
 
     /**
@@ -425,7 +430,11 @@ and b.bookid=?';
 
         return [$books, $totalPage];
     }
-
+    
+    /**
+     * Returns random 20 tags and its count
+     * @return JSON
+     */
     public function tagCount() {
         $sql = "select count(tid) tc, tag from book_taglist group by tag order by rand() desc limit 0,20";
         $results = DB::connection('rsywx')->select($sql);
@@ -433,7 +442,11 @@ and b.bookid=?';
                     'data' => $results
         ]);
     }
-
+    /**
+     * Return mostly $count visited books
+     * @param int $count
+     * @return JSON
+     */
     public function hot($count = 10) {
         $sql = 'select b.*, count(v.vid) vc from book_book b, book_visit v where v.bookid=b.id group by b.id order by vc desc ' . "limit 0, $count";
 
