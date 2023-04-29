@@ -72,5 +72,6 @@ $router->group(['prefix'=>'admin'], function() use ($router) {
 $router->get('/qotd', 'MiscController@qotd');
 $router->get('/weather', 'MiscController@weather');
 $router->get('/lakers', 'MiscController@lakers');
+$router->get('/lakers/season', 'MiscController@season');
 
 
