@@ -118,7 +118,7 @@ class MiscController extends BaseController {
      * @return type
      */
     public function season() {
-        $interval = 28*4;
+        $interval = env('LAKERS');
         $sql = "SELECT * FROM rsywx.lakers
 where dateplayed between date_sub(now(), interval $interval day) and now()
 order by dateplayed";

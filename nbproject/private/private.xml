@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/vagrant_env/rsywx/lumen/app/Http/Controllers/BookController.php</file>
             <file>file:/D:/vagrant_env/rsywx/lumen/bootstrap/app.php</file>
             <file>file:/D:/vagrant_env/rsywx/lumen/app/Http/Controllers/MiscController.php</file>
+            <file>file:/D:/vagrant_env/rsywx/lumen/app/Http/Controllers/AdminController.php</file>
             <file>file:/D:/vagrant_env/rsywx/lumen/app/Http/Controllers/BlogController.php</file>
             <file>file:/D:/vagrant_env/rsywx/lumen/routes/web.php</file>
+            <file>file:/D:/vagrant_env/rsywx/lumen/.env</file>
             <file>file:/D:/vagrant_env/rsywx/lumen/app/Http/Controllers/ReadController.php</file>
         </group>
     </open-files>
