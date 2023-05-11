@@ -66,6 +66,7 @@ $router->group(['prefix'=>'admin'], function() use ($router) {
     $router->get('/topbooks[/{count}]', 'AdminController@getTopBooks');
     $router->get('/bottombooks[/{count}]', 'AdminController@getBottomBooks');
     $router->get('/recentbooks[/{count}]', 'AdminController@getRecentBooks');
+    $router->get('/forgottenbooks[/{count}]', 'AdminController@getForgottenBooks');
     
 });
 

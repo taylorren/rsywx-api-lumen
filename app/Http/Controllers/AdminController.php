@@ -92,4 +92,22 @@ limit 0,$count";
                     'data' => $res,
         ]);
     }
+    
+    /** 
+     * Return forgotten (visited a long time ago) books
+     * @param int $count
+     * @return JSON
+     */
+    public function getForgottenBooks($count = 20) {
+        $sql = "SELECT b.title, b.bookid, count(v.vid) vc, max(v.visitwhen) lvt FROM book_book b, book_visit v
+where b.id=v.bookid
+group by b.id
+order by lvt
+limit 0,$count";
+
+        $res = DB::connection('rsywx')->select($sql);
+        return response()->json([
+                    'data' => $res,
+        ]);
+    }
 }
