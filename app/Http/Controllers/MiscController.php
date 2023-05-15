@@ -120,7 +120,7 @@ class MiscController extends BaseController {
     public function season() {
         $interval = env('LAKERS');
         $sql = "SELECT * FROM rsywx.lakers
-where dateplayed between date_sub(now(), interval $interval day) and now()
+where dateplayed between date_sub(now(), interval $interval day) and date_add(now(), interval $interval day)
 order by dateplayed";
         $res=DB::connection('rsywx')->select($sql);
         return response()->json([
