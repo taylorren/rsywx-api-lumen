@@ -10,11 +10,13 @@ use Unirest;
 /**
  * This is the Controller for Book related operations
  */
-class MiscController extends BaseController {
+class MiscController extends BaseController
+{
 
     private $request;
 
-    public function __construct(Request $request) {
+    public function __construct(Request $request)
+    {
         $this->request = $request;
     }
 
@@ -22,12 +24,13 @@ class MiscController extends BaseController {
      * Returns a random quote
      * @return JSON
      */
-    public function qotd() {
+    public function qotd()
+    {
         $sql = 'select * from qotd order by rand() limit 0, 1';
         $result = DB::connection('rsywx')->select($sql);
 
         return response()->json([
-                    'data' => $result,
+            'data' => $result,
         ]);
     }
 
@@ -35,7 +38,8 @@ class MiscController extends BaseController {
      * Returns the current weather in Suzhou
      * @return JSON
      */
-    public function weather() {
+    public function weather()
+    {
         $city = "CN101190401"; // CN101190401 is the code for Suzhou, Jiangsu, China
         //$key = "df35dd302a1949faac063b497caf8dfc";
         $key = "c4ac49d603e04dbc876470cd617cd80b";
@@ -81,7 +85,7 @@ class MiscController extends BaseController {
         $res = ['weather' => $res1, 'lifestyle' => $res2];
 
         return response()->json([
-                    'data' => $res,
+            'data' => $res,
         ]);
     }
 
@@ -89,14 +93,21 @@ class MiscController extends BaseController {
      * Returns Lakers score summary in a season 
      * @return JSON
      */
-    public function lakers() {
+    public function lakers()
+    {
         $year = env('SEASON');
 
         $sql = "SELECT count(id) winlose FROM rsywx.lakers where year=? and id>0 and winlose = 'W' union SELECT count(id) winlose FROM rsywx.lakers where year=? and id>0 and winlose = 'L'";
 
         $result = DB::connection('rsywx')->select($sql, [$year, $year]);
+
         $win = $result[0]->winlose;
-        $lose = $result[1]->winlose;
+        if (count($result) == 1) // Some SQL funny behavior and we have to pop a new element
+        {
+            $lose = 0;
+        } else {
+            $lose = $result[1]->winlose;
+        }
         $per = 0;
         if ($win + $lose <> 0) {
             $per = number_format($win / ($win + $lose) * 100, 1);
@@ -107,9 +118,10 @@ class MiscController extends BaseController {
             'per' => $per,
             'year' => $year,
         ];
-        return response()->json([
-                    'data' => $res,
-                        ]
+        return response()->json(
+            [
+                'data' => $res,
+            ]
         );
     }
 
@@ -117,14 +129,15 @@ class MiscController extends BaseController {
      * Returns Laker's seasonal games records
      * @return type
      */
-    public function season() {
+    public function season()
+    {
         $interval = env('LAKERS');
         $sql = "SELECT * FROM rsywx.lakers
 where dateplayed between date_sub(now(), interval $interval day) and date_add(now(), interval $interval day)
 order by dateplayed";
-        $res=DB::connection('rsywx')->select($sql);
+        $res = DB::connection('rsywx')->select($sql);
         return response()->json([
-            'data'=>$res,
+            'data' => $res,
         ]);
     }
 }
