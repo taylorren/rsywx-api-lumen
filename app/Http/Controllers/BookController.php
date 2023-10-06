@@ -55,7 +55,8 @@ class BookController extends BaseController {
         return route('cover', [
             'bookid' => $id,
             'author' => $author,
-            'title' => htmlspecialchars($title),
+            'title' => $title,
+//            'title' => htmlspecialchars($title),
             'size' => $size,
         ]);
     }
