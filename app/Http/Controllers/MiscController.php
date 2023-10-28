@@ -97,17 +97,13 @@ class MiscController extends BaseController
     {
         $year = env('SEASON');
 
-        $sql = "SELECT count(id) winlose FROM rsywx.lakers where year=? and id>0 and winlose = 'W' union SELECT count(id) winlose FROM rsywx.lakers where year=? and id>0 and winlose = 'L'";
+        $sql = "SELECT count(id) winlose FROM rsywx.lakers where year=? and id>0 and winlose = 'W' union all SELECT count(id) winlose FROM rsywx.lakers where year=? and id>0 and winlose = 'L'";
 
         $result = DB::connection('rsywx')->select($sql, [$year, $year]);
 
         $win = $result[0]->winlose;
-        if (count($result) == 1) // Some SQL funny behavior and we have to pop a new element
-        {
-            $lose = 0;
-        } else {
-            $lose = $result[1]->winlose;
-        }
+        $lose = $result[1]->winlose;
+        
         $per = 0;
         if ($win + $lose <> 0) {
             $per = number_format($win / ($win + $lose) * 100, 1);
